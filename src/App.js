@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { useSelector } from "react-redux"
+import AddTask from './AddTask';
+import ListTask from './ListTask';
+import { useDispatch } from "react-redux";
+import {filterTask} from "./Actions/Action"
 
 function App() {
+  const dispatch = useDispatch()
+  const handleSelect = e =>{
+    dispatch(filterTask(e.target.id))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTask />
+  
+      <ListTask />
+      <div>
+        <input type="radio" name="btn" id="all" onChange={handleSelect}/>
+        <label for="all" >SHOW ALL</label>
+      </div>
+      <div>
+        <input type="radio" name="btn" id="true" onChange={handleSelect}/>
+        <label for="true" >IS DONE</label>
+      </div>
+      <div>
+        <input type="radio" name="btn" id="false" onChange={handleSelect} />
+        <label for="false" >NOT DONE</label>
+      </div>
+      
     </div>
   );
 }
